@@ -1,1 +1,9 @@
+******* SQL *******
+
+Stored Procedures
+- Something I see that a lot of job descriptions mention
+- stored procedures are good because of their reusability.
+- They are also easily modified by using the ALTER keyword.
+- Security has the potential to be enhanced because it creates a facade, allowing users to execute the procedure without directly accessing the table.
+- Since only the procedure name is passed to the server (not the whole query), this reduces the network traffic
 
