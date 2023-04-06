@@ -1,6 +1,6 @@
 ******* SQL *******
 
-Stored Procedures
+# Stored Procedures
 - Something I see that a lot of job descriptions mention
 - stored procedures are good because of their reusability.
 - They are also easily modified by using the ALTER keyword.
@@ -9,5 +9,27 @@ Stored Procedures
 - In Microsoft SQL Server (which uses Transact-SQL), a stored procedure looks like: 
   "CREATE PROCEDURE UpdateUserPrivilege @username nvarchar(30) AS [insert your query here] GO;" 
   where @user_id is a single parameter that you want the procedure to take.
-
+  
 - Executing a stored procedure looks like: "EXEC UpdateUserPrivilege @username = 'TestUser' "
+
+# LINQ
+- LINQ can be written for any collection of objects that supports IEnumerable or IEnumerable<T> interface. 
+- A query operation looks like this:
+  
+  int[] numbers = {100, 101, 56, 42, 33}
+  IEnumerable<int> query = from numb in numbers
+                           where numb > 60
+                           select numb;
+  foreach (int i in query) {
+    Console.Write(i + " ");
+  }
+
+  **Note that the query variable ("query", in this case) isn't actually executed until it is iterated over.
+ 
+ - It is recommended to write query syntax as much as possible and method syntax only when necessary.
+ - Query Syntax looks what you just saw above. It is highly readable and therefore favored.
+ - Method syntax looks like: IEnumerable<int> numQuery2 = numbers.Where(num => num % 2 == 0).OrderBy(n => n); It is less legible.
+   The methods ".Where" and ".OrderBy" are extension methods that extend the IEnumerable<T> interface. 
+   
+- A query can convert the retrieved data to a new type, for example: query rerieves ints and turns it into a string via interpolation.
+- You can also call a method on a query, for example: int arbitraryTotal = (from num in array where num > 70 select num).Count() will produce the number of elements in array that are larger than 70.
