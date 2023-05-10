@@ -8,7 +8,7 @@
 - Since only the procedure name is passed to the server (not the whole query), this reduces the network traffic
 - In Microsoft SQL Server (which uses Transact-SQL), a stored procedure looks like: 
   "CREATE PROCEDURE UpdateUserPrivilege @username nvarchar(30) AS [insert your query here] GO;" 
-  where @user_id is a single parameter that you want the procedure to take.
+  where @username is a single parameter that you want the procedure to take.
   
 - Executing a stored procedure looks like: "EXEC UpdateUserPrivilege @username = 'TestUser' "
 
@@ -24,7 +24,7 @@
     Console.Write(i + " ");
   }
 
-  **Note that the query variable ("query", in this case) isn't actually executed until it is iterated over.
+  **Note that the query variable ("query", in this case) isn't actually executed until it is iterated over by the for loop.
  
  - It is recommended to write query syntax as much as possible and method syntax only when necessary.
  - Query Syntax looks what you just saw above. It is highly readable and therefore favored.
@@ -33,3 +33,30 @@
    
 - A query can convert the retrieved data to a new type, for example: query rerieves ints and turns it into a string via interpolation.
 - You can also call a method on a query, for example: int arbitraryTotal = (from num in array where num > 70 select num).Count() will produce the number of elements in array that are larger than 70.
+
+
+# JOINS
+- I've used this infrequently, but still is an important concept to understand.
+- Joins are used to combine data from two different tables that share a similar column. For example, let's say we have a 'personality_traits' table and a 'physical_traits' table. Both contain the column user_id. 
+  If we join on user_id, then we can see what personality traits and physical traits they share.
+- This would look like SELECT * from personality_traits as prsn JOIN physical_traits as phys ON prsn.user_id = phys.user_id;
+  and it would theoretically produce a result like: Smart / Funny / Tall / Slow. Where the columns of personality_traits (Smart and Funny) and physical_traits (Tall and Slow) 
+  are retrieved in the same query.
+- Awesome tidbit: A natural join will join two tables and produce their matching rows based on identical columns (name and type). 
+  So this is useful when you want to find commonalities between two tables without having to write a length query: Table1 NATURAL JOIN Table2
+  
+# Triggers
+- CREATE trigger [trigger_name] // creates or replaces an existing trigger with trigger_name
+  [insert | update | delete] // the operation that should activate the trigger
+  on [table_name] // the table that should be affected by the trigger
+  [before | after] // when the table should be affected by the trigger; before or after the insert/update/delete operation?
+  [for each row] // do you want each row in this table to be affected?
+  [trigger_body] // write what you want to happen in the body here.
+  
+# Views
+- CREATE VIEW ViewEmployeeBenefits AS
+  SELECT EmployeeDetails.NAME, EmployeeBenefits.Benefit, EmployeeDetails.YearsWorked, EmployeeBenefits.YearsRequired
+  FROM EmployeeDetails, EmployeeBenefits
+  WHERE EmployeeDetails.YearsWorked = EmployeeBenefits.YearsRequired;
+- This view would produce a list of employees' names, their years worked, and benefits that they qualify for based on their years worked.
+  
