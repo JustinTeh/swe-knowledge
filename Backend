@@ -1,0 +1,30 @@
+# Entity Framework 6
+
+
+- Code First approach will allow you to: define models in C# and create a new database
+
+1. Create the Model
+  - Define your model in C#
+  - Awesome tidbit: Lazy Loading feature: setting a data member to be virtual will activate Lazy Loading, which means that that data member will be loaded from the db when you try to access it.
+    For example, public virtual List<Post> Posts {get; set;} will be loaded from the db when you try to access Posts.
+
+2. DbContext
+  - DbContext is a representation of a db instance, allowing you to perform CRUD operations.
+  - Install and import the entityframework package
+  - It's important to add a context to your models that you defined in the last step. For example, 
+      public class BloggingContext : DbContext
+      {
+          public DbSet<Blog> Blogs { get; set; }
+          public DbSet<Post> Posts { get; set; }
+      }
+    (from learn.microsoft.com)
+
+3. Reading and Writing Data
+  - To access the database now, you have to create an instance of that DbContext. I.e. using (var db = new BloggingContext()) { ... code to manipulate the model ... db.SaveChanges() }
+  
+Continue learning here https://learn.microsoft.com/en-us/ef/ef6/modeling/code-first/workflows/new-database
+
+# Entity Framework Core (prob learn this more since EF6 is no longer being developed)
+https://learn.microsoft.com/en-us/ef/core/modeling/
+https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli
+
